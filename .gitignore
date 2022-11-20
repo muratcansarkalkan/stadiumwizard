@@ -1,0 +1,24 @@
+.env
+
+# Old works
+app copy.js
+script.js
+test.js
+
+# Credentials
+credentials.json
+googlekey.json
+
+# Older html pages that will be vanished
+main-old.html
+main.html
+
+# Python codes
+pythoncodes.ipynb
+
+# Temporarily CSS
+*css
+
+# Test folder
+/test
+/node_modules
