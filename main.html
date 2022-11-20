@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="specific.css">
+    <title>Stadium Wizard BRAND NEW</title>
+</head>
+<body>
+    <div class="text-center">
+        <div class="header">
+            <div class="title">Welcome to Stadium Wizard</div>
+            <br>
+        </div>
+        <br>
+        <div class="actions">
+            <textarea placeholder="Enter anything"></textarea>
+        </div>    
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+
+    <button id="authorize_button" class="btn btn-primary">Current Folders</button>
+    <button id="authorize_button" class="btn btn-secondary">Authorize</button>
+    <button id="signout_button" class="btn btn-success">Sign Out</button>
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mt-3">
+          <ul id="content" class="list-group list-group-flush">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

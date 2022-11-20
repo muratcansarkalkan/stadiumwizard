@@ -3,9 +3,7 @@ const fs = require('fs')
 const testFolder = './test/';
 const { google } = require('googleapis')
 
-const filerealId = '1NobeewSi5KG-AejPotWky7e22egEUWT_'
-
-const GOOGLE_API_FOLDER_ID = '19O6WJS6QKnLnmP9I_q-bNORcV490hkNi'
+const filerealId = '11je-QQH6tjFAxmwbsnoIZFPKjzUj9Ol5'
 
 const http = require('http'); // or 'https' for https:// URLs
 
