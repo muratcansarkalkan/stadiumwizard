@@ -1,57 +1,64 @@
 // Equivalent to Python's OS
 const fs = require('fs')
-const testFolder = './test/';
+const path = require('path')
 const { google } = require('googleapis')
 
-const filerealId = '11je-QQH6tjFAxmwbsnoIZFPKjzUj9Ol5'
+// https://stackoverflow.com/a/41355384/8295460
+function printProgress(progress) {
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(`Downloaded ${progress}%`);
+}
 
-const http = require('http'); // or 'https' for https:// URLs
+async function downloadFile(fileId) {
+    // https://googleapis.dev/nodejs/googleapis/latest/
+    const auth = new google.auth.GoogleAuth({
+        keyFile: './googlekey.json',
+        scopes: [
+            'https://www.googleapis.com/auth/drive.readonly',
+        ]
+    })
+    const drive = google.drive({ version: 'v3', auth })
 
-async function downloadFile(filerealId){
-    try{
-        
-        // https://googleapis.dev/nodejs/googleapis/latest/
-        const auth = new google.auth.GoogleAuth({
-            keyFile: './googlekey.json',
-            scopes: [
-                'https://www.googleapis.com/auth/drive',
-                'https://www.googleapis.com/auth/drive.appdata',
-                'https://www.googleapis.com/auth/drive.file',
-                'https://www.googleapis.com/auth/drive.metadata',
-                'https://www.googleapis.com/auth/drive.metadata.readonly',
-                'https://www.googleapis.com/auth/drive.photos.readonly',
-                'https://www.googleapis.com/auth/drive.readonly',
-            ]
-        })
-
-        const drive = google.drive({version: 'v3', auth})
-
+    try {
         // https://googleapis.dev/nodejs/googleapis/latest/drive/classes/Resource$Files.html#get
-        const file = await drive.files.get({
-            fileId: filerealId,
-            alt: 'media',
-          }, {responseType: "stream"});
+        const [metadata, file] = await Promise.all(
+            [
+                drive.files.get({ fileId, fields: '*' }),
+                drive.files.get({
+                    fileId,
+                    alt: 'media',
+                }, { responseType: "stream" })
+            ])
 
-        const metadata = drive.files.get({ fileId: filerealId, fields: '*' });
+        const fileName = metadata.data.name
+        const filePath = path.join(__dirname, fileName)
+        const localFile = fs.createWriteStream(filePath)
+        // Bytes left to download
+        let downloaded = metadata.data.size
 
-        metadata.then(function(result) {
-            resultnew = result.data.name;
-            const localFile = fs.createWriteStream(resultnew);
-            file.data
-              .on("end", () => {
-                 console.log("Done");
-              })
-              .on("error", err => {
-                 console.log("Error", err);
-              })
-              .pipe(localFile);
-        })
-    
-        return file.status;
+        console.log(`Downloading: ${fileName}`)
+        file.data
+            .on('data', (d) => {
+                downloaded -= d.length
+                // Percent of what has been downloaded
+                const percent = (metadata.data.size - downloaded) * 100 / metadata.data.size
+                printProgress(percent.toFixed(2))
+            })
+            .on("error", err => {
+                process.stdout.write("\n");
+                console.log("Error", err);
+            })
+            .on("end", () => {
+                process.stdout.write("\n");
+                console.log(`File saved to: ${filePath}`);
+            })
+            .pipe(localFile);
+
+        return filePath;
     } catch (err) {
-        // TODO(developer) - Handle error
-        throw err;
+        console.error("Can't get file", err)
     }
 }
 
-downloadFile(filerealId)
+downloadFile('1IZIGulc2NTG-T9PLWLR4P2pOF7v_jElc')
