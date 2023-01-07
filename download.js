@@ -1,7 +1,7 @@
 // Equivalent to Python's OS
-const fs = require('fs')
+// const fs = require('fs')
 const path = require('path')
-const { google } = require('googleapis')
+// const { google } = require('googleapis')
 
 // https://stackoverflow.com/a/41355384/8295460
 function printProgress(progress) {

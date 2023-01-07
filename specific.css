@@ -1,0 +1,18 @@
+.dropdown-toggle::after {
+  display: none;;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task label.checked {
+  text-decoration: line-through;
+}
+
+.specific_table {
+  margin: auto;
+  width: 600px;
+}

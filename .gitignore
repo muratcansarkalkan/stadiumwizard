@@ -16,7 +16,8 @@ main-old.html
 pythoncodes.ipynb
 
 # Temporarily CSS
-*css
+bootstrap.css
+bootstrap.min.css
 
 # Test folder
 /test

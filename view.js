@@ -1,9 +1,10 @@
 // Equivalent to Python's OS
 const fs = require('fs')
+const ui = new UI();
 const { google } = require('googleapis')
 
-const folderId = '10IAd37aNRGGuw1fl6MSOIRBybw9AdEdT'
-// const folderId = '17K7jQFAtGbxEHXElDPEd_KIdRJNcHHrk'
+const folderId = '1-1c1s9XpXO2O71KKP66DVI0YB8lM2L1g'
+// const folderId = '1J2RFNNLL_Mn8ZAZ8FjDC-ikB3z-AtCGY'
 
 async function viewFolder(filerealId){
     try{
@@ -40,9 +41,10 @@ async function viewFolder(filerealId){
         Array.prototype.push.apply(subFolders, res.files);
 
         // Logs file name and ID for each element of subFolders
-        res.data.files.forEach(function(file) {
-        console.log('Found file:', file.name, file.id);
-        });
+        // res.data.files.forEach(function(file) {
+        // console.log('Found file:', file.name, file.id);
+        // });
+        // console.log(res.data.files);
         return res.data.files;
     } catch (err) {
         // TODO(developer) - Handle error
@@ -50,4 +52,16 @@ async function viewFolder(filerealId){
     }
 }
 
-viewFolder(folderId)
+ui.btn_main.addEventListener("click", function() {
+    let promise = viewFolder(folderId);
+    Promise.all([promise]).then((values) => {
+        ui.viewData(values[0]);
+    });
+});
+
+function viewer(uniqueId){
+    let promise = viewFolder(uniqueId);
+    Promise.all([promise]).then((values) => {
+        ui.viewData(values[0]); 
+    });
+};
