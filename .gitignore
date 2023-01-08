@@ -5,6 +5,14 @@ app copy.js
 script.js
 test.js
 
+# First electron attempt
+preload.js
+app.js
+download.js
+ui.js
+main copy.js
+upload.js
+
 # Credentials
 credentials.json
 googlekey.json

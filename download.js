@@ -38,6 +38,7 @@ async function downloadFile(fileId) {
         let downloaded = metadata.data.size
 
         console.log(`Downloading: ${fileName}`)
+        
         file.data
             .on('data', (d) => {
                 downloaded -= d.length

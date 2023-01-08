@@ -5,7 +5,8 @@
   "main": "app.js",
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
-    "googleapis": "^105.0.0"
+    "googleapis": "^105.0.0",
+    "jquery": "^3.6.3"
   },
   "devDependencies": {
     "electron": "^21.3.0"

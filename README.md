@@ -14,4 +14,11 @@ This is the Stadium Wizard that helps you install custom stadiums from Google Dr
 - You need to have npm installed in your PC.
 - Clone this repository to anywhere.
 - After doing so, navigate to the path where you cloned this repository, then Shift+Right Click and run 'Open PowerShell Window here', or any cmd screen.
-- Type electron app.js and run.
+- Type electron main.js and run.
+
+### To Do:
+
+- Fixing download
+- Fixing button navigations
+- Improvised UI
+- Searching through Drive folder
