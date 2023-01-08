@@ -26,10 +26,9 @@ function getFile(fileId) {
     const drive = google.drive({ version: 'v3', auth });
     const rest = drive.files.get({ fileId: fileId, fields: '*' });
 
-    rest.then(function(result) {
+    rest.then(function (result) {
         resultnew = result.data.name;
         console.log(resultnew)
     })
-    
 }
 getFile(filerealId)

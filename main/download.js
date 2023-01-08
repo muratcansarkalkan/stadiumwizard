@@ -1,5 +1,5 @@
 // Equivalent to Python's OS
-// const fs = require('fs')
+const fs = require('fs')
 const path = require('path')
 // const { google } = require('googleapis')
 
@@ -30,14 +30,13 @@ async function downloadFile(fileId) {
                     alt: 'media',
                 }, { responseType: "stream" })
             ])
-        
+
         const fileName = metadata.data.name
         const filePath = path.join(__dirname, fileName)
         const localFile = fs.createWriteStream(filePath)
         // Bytes left to download
         let downloaded = metadata.data.size
 
-        console.log(`Downloading: ${fileName}`)
         file.data
             .on('data', (d) => {
                 downloaded -= d.length
@@ -62,3 +61,5 @@ async function downloadFile(fileId) {
 }
 
 // downloadFile('1IZIGulc2NTG-T9PLWLR4P2pOF7v_jElc')
+
+module.exports = { downloadFile }

@@ -7,16 +7,16 @@ const filerealId = '1NobeewSi5KG-AejPotWky7e22egEUWT_'
 
 const GOOGLE_API_FOLDER_ID = '19O6WJS6QKnLnmP9I_q-bNORcV490hkNi'
 
-async function uploadFile(file){
-    try{
-        let newfile = (testFolder+file).split('/')
-        
+async function uploadFile(file) {
+    try {
+        let newfile = (testFolder + file).split('/')
+
         const auth = new google.auth.GoogleAuth({
             keyFile: './googlekey.json',
-            scopes: ['https://www.googleapis.com/auth/drive']
+            scopes: ['https://www.googleapis.com/auth/drive'],
         })
 
-        const driveService = google.drive({version: 'v3', auth})
+        const driveService = google.drive({ version: 'v3', auth })
 
         const fileMetaData = {
             'name': newfile[newfile.length - 1],
@@ -35,14 +35,14 @@ async function uploadFile(file){
         })
         return response.data.id
 
-    }catch(err){
+    } catch (err) {
         console.log('Upload file error', err)
     }
 }
 
 fs.readdir(testFolder, (err, files) => {
     files.forEach(file => {
-        uploadFile(testFolder+file).then(data => {
+        uploadFile(testFolder + file).then(data => {
             console.log(data)
             //https://drive.google.com/uc?export=view&id=
         })
