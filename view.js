@@ -1,6 +1,7 @@
 // Equivalent to Python's OS
 const fs = require('fs')
 const ui = new UI();
+
 const { google } = require('googleapis')
 
 const folderId = '1-1c1s9XpXO2O71KKP66DVI0YB8lM2L1g'
@@ -41,10 +42,9 @@ async function viewFolder(filerealId){
         Array.prototype.push.apply(subFolders, res.files);
 
         // Logs file name and ID for each element of subFolders
-        // res.data.files.forEach(function(file) {
-        // console.log('Found file:', file.name, file.id);
-        // });
-        // console.log(res.data.files);
+        res.data.files.forEach(function(file) {
+        console.log('Found file:', file.mimeType);
+        });
         return res.data.files;
     } catch (err) {
         // TODO(developer) - Handle error
@@ -65,3 +65,6 @@ function viewer(uniqueId){
         ui.viewData(values[0]); 
     });
 };
+
+// application/vnd.google-apps.folder
+// application/x-7z-compressed

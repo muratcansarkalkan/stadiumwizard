@@ -30,7 +30,7 @@ async function downloadFile(fileId) {
                     alt: 'media',
                 }, { responseType: "stream" })
             ])
-
+        
         const fileName = metadata.data.name
         const filePath = path.join(__dirname, fileName)
         const localFile = fs.createWriteStream(filePath)
@@ -61,4 +61,4 @@ async function downloadFile(fileId) {
     }
 }
 
-downloadFile('1IZIGulc2NTG-T9PLWLR4P2pOF7v_jElc')
+// downloadFile('1IZIGulc2NTG-T9PLWLR4P2pOF7v_jElc')
