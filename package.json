@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "stadiumwizard",
   "version": "0.0.0",
   "license": "MIT",
@@ -14,4 +15,20 @@
   "scripts": {
     "start": "electron ."
   }
+=======
+    "name": "stadiumwizard",
+    "version": "0.0.0",
+    "license": "MIT",
+    "main": "app.js",
+    "dependencies": {
+        "@google-cloud/local-auth": "^2.1.0",
+        "googleapis": "^110.0.0"
+    },
+    "devDependencies": {
+        "electron": "^21.3.0"
+    },
+    "scripts": {
+        "start": "electron ."
+    }
+>>>>>>> 60cd5e2e8024498770077d8584b1ee521995225f
 }
