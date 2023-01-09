@@ -3,8 +3,9 @@ const path = require('path')
 const fs = require('fs')
 const { google } = require('googleapis')
 
-async function downloadFile(fileId){
+ipcMain.on('set-download', async (event, fileId) => {
   try{
+      console.log(fileId);
       const auth = new google.auth.GoogleAuth({
         keyFile: './googlekey.json',
         scopes: [
@@ -15,8 +16,7 @@ async function downloadFile(fileId){
       // https://googleapis.dev/nodejs/googleapis/latest/
       // Contains OAuth and scopes
 
-      fileId = '1WpbaIPPgkkXbbkQUNkCsc6EVFuvAegDi'
-        // https://googleapis.dev/nodejs/googleapis/latest/drive/classes/Resource$Files.html#get
+      // https://googleapis.dev/nodejs/googleapis/latest/drive/classes/Resource$Files.html#get
         const [metadata, file] = await Promise.all(
           [
               drive.files.get({ fileId, fields: '*' }),
@@ -51,52 +51,7 @@ async function downloadFile(fileId){
       // TODO(developer) - Handle error
       throw err;
   }
-}
-
-async function viewFolder(filerealId){
-  try{
-
-      // https://googleapis.dev/nodejs/googleapis/latest/
-      // Contains OAuth and scopes
-      const auth = new google.auth.GoogleAuth({
-          keyFile: './googlekey.json',
-          scopes: [
-              'https://www.googleapis.com/auth/drive',
-              'https://www.googleapis.com/auth/drive.appdata',
-              'https://www.googleapis.com/auth/drive.file',
-              'https://www.googleapis.com/auth/drive.metadata',
-              'https://www.googleapis.com/auth/drive.metadata.readonly',
-              'https://www.googleapis.com/auth/drive.photos.readonly',
-              'https://www.googleapis.com/auth/drive.readonly',
-          ]
-      })
-
-      // Shortens googleDrive functions
-      const drive = google.drive({version: 'v3', auth})
-
-      // Generates list
-      const subFolders = [];
-
-      // Gets list of files
-      const res = await drive.files.list({
-          q: `'${filerealId}' in parents`,
-          fields: `nextPageToken, files(*)`,
-          spaces: 'drive',
-        });
-
-      // Pushes res files content to subFolders
-      Array.prototype.push.apply(subFolders, res.files);
-
-      // Logs file name and ID for each element of subFolders
-      // res.data.files.forEach(function(file) {
-      // console.log('Found file:', file.mimeType);
-      // });
-      return res.data.files;
-  } catch (err) {
-      // TODO(developer) - Handle error
-      throw err;
-  }
-}
+})
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -113,13 +68,8 @@ function createWindow () {
 }
 
 app.whenReady().then(() => {
-  ipcMain.handle('set-download', (event, folderId) => {
-    const result = downloadFile(folderId);
-    return result
-  })
-  ipcMain.handle('set-view', (event, folderId) => {
-    const result = viewFolder(folderId);
-    return result
+  ipcMain.handle('set-download', (event, fileId) => {
+    downloadFile(fileId);
   })
   createWindow()
   app.on('activate', function () {

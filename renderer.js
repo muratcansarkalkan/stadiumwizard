@@ -29,27 +29,3 @@ let viewData = function(values) {
     document.querySelector(".list_of_stadiums").innerHTML = tag;
 }
 
-// btn_main.onclick = async () => {
-//     const folderId = btn_main.id;
-//     console.log(folderId);
-//     ipcRenderer.invoke('set-view', folderId).then((result) => {
-//         return viewData(result);
-//     })
-// }
-
-btn_main.addEventListener('click', async () => {
-    const folderId = btn_main.id;
-    console.log(folderId);
-    ipcRenderer.invoke('set-view', folderId).then((result) => {
-        viewData(result);
-    })
-})
-
-// btn_main.onclick = async () => {
-//     const folderId = btn_main.id;
-//     console.log(folderId);
-//     // window.Electron.send('set-view', folderId)
-//     ipcRenderer.invoke('set-view', folderId).then((result) => {
-//         viewData(result);
-//     })
-// }

@@ -7,6 +7,7 @@ This is the Stadium Wizard that helps you install custom stadiums from Google Dr
 - Desktop client
 - Listing folders
 - Reverting back to main folder by clicking 'Main Folder'
+- Downloading compressed packages withi one click
 - Separate buttons for .7z files and folders
 
 ### Instructions:
@@ -18,7 +19,5 @@ This is the Stadium Wizard that helps you install custom stadiums from Google Dr
 
 ### To Do:
 
-- Fixing download
-- Fixing button navigations
 - Improvised UI
 - Searching through Drive folder

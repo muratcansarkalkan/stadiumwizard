@@ -49,7 +49,7 @@ async function viewFolder(filerealId){
         let tag = ``;
         res.data.files.forEach(function(file) {
         if (file.mimeType == 'application/x-7z-compressed'){
-        tag = tag + `<tr><td>${file.name}</td><td><button class="btn btn-success btn_get" id="${file.id}" onclick="downloadFile('${file.id}');">Download</button></td></tr>`;
+        tag = tag + `<tr><td>${file.name}</td><td><button class="btn btn-success btn_get" id="${file.id}" onclick="download('${file.id}');">Download</button></td></tr>`;
         }
         else {
         tag = tag + `<tr><td>${file.name}</td><td><button class="btn btn-primary btn_view" id="${file.id}" onclick="viewFolder('${file.id}');">Navigate</button></td></tr>`;
