@@ -1,38 +1,73 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
-const { downloadFile } = require('./main/download')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron')
+const fs = require('fs')
 const path = require('path')
+const { google } = require('googleapis')
 
-const createWindow = () => {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      // preload: path.join(__dirname, 'renderer', 'preload.js'),
-    }
-  })
+async function downloadFile(fileId){
+  try{
+      const auth = new google.auth.GoogleAuth({
+        keyFile: './googlekey.json',
+        scopes: [
+            'https://www.googleapis.com/auth/drive.readonly',
+        ]
+      })
+      const drive = google.drive({ version: 'v3', auth })
+      // https://googleapis.dev/nodejs/googleapis/latest/
+      // Contains OAuth and scopes
 
-  // Register IPC messaging
-  // ipcMain.on('downloadFile', (_, fileId) => {
-  //   downloadFile(fileId)
-  // })
+      fileId = '1WpbaIPPgkkXbbkQUNkCsc6EVFuvAegDi'
+        // https://googleapis.dev/nodejs/googleapis/latest/drive/classes/Resource$Files.html#get
+        const [metadata, file] = await Promise.all(
+          [
+              drive.files.get({ fileId, fields: '*' }),
+              drive.files.get({
+                  fileId,
+                  alt: 'media',
+              }, { responseType: "stream" })
+          ])
+      
+      const fileName = metadata.data.name
+      const filePath = path.join(__dirname, fileName)
+      const localFile = fs.createWriteStream(filePath)
+      // Bytes left to download
+      let downloaded = metadata.data.size
 
-  win.loadFile('main.html')
+      console.log(`Downloading: ${fileName}`)
+      
+      file.data
+          .on('data', (d) => {
+              // Percent of what has been downloaded
+          })
+          .on("error", err => {
+              console.log("Error", err);
+          })
+          .on("end", () => {
+              console.log(`File saved to: ${filePath}`);
+          })
+          .pipe(localFile);
+
+      return filePath;
+  } catch (err) {
+      // TODO(developer) - Handle error
+      throw err;
+  }
 }
 
-app.whenReady().then(() => {
-  createWindow()
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+const createWindow = () => {
+    const win = new BrowserWindow({
+      width: 800,
+      height: 600,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false
     }
-  });
-})
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
+    })
+  
+    win.loadFile('main.html')
   }
-});
+
+  app.whenReady().then(() => {
+    ipcMain.handle('set-download', downloadFile)
+    createWindow()
+  })
