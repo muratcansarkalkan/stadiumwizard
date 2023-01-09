@@ -1,7 +1,8 @@
 // Equivalent to Python's OS
 const fs = require('fs')
 const path = require('path')
-// const { google } = require('googleapis')
+const { google } = require('googleapis')
+const { app } = require('electron')
 
 // https://stackoverflow.com/a/41355384/8295460
 function printProgress(progress) {
@@ -11,12 +12,11 @@ function printProgress(progress) {
 }
 
 async function downloadFile(fileId) {
+    console.log('Starting download for:', fileId)
     // https://googleapis.dev/nodejs/googleapis/latest/
     const auth = new google.auth.GoogleAuth({
         keyFile: './googlekey.json',
-        scopes: [
-            'https://www.googleapis.com/auth/drive.readonly',
-        ]
+        scopes: 'https://www.googleapis.com/auth/drive.readonly'
     })
     const drive = google.drive({ version: 'v3', auth })
 
@@ -32,7 +32,8 @@ async function downloadFile(fileId) {
             ])
 
         const fileName = metadata.data.name
-        const filePath = path.join(__dirname, fileName)
+        // Download the file to the root of the app
+        const filePath = path.join(app.getAppPath(), fileName)
         const localFile = fs.createWriteStream(filePath)
         // Bytes left to download
         let downloaded = metadata.data.size
@@ -59,7 +60,5 @@ async function downloadFile(fileId) {
         console.error("Can't get file", err)
     }
 }
-
-// downloadFile('1IZIGulc2NTG-T9PLWLR4P2pOF7v_jElc')
 
 module.exports = { downloadFile }

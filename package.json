@@ -2,13 +2,14 @@
     "name": "stadiumwizard",
     "version": "0.0.0",
     "license": "MIT",
-    "main": "app.js",
+    "main": "main.js",
     "dependencies": {
         "@google-cloud/local-auth": "^2.1.0",
         "googleapis": "^110.0.0"
     },
     "devDependencies": {
-        "electron": "^21.3.0"
+        "electron": "^21.3.0",
+        "prettier": "^2.8.2"
     },
     "scripts": {
         "start": "electron ."

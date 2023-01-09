@@ -14,15 +14,15 @@ btn.addEventListener('click', async () => {
     filePathElement.innerText = "Successfully downloaded at: " + filePath
 })
 
-let viewData = function(values) {
+let viewData = function (values) {
     let tag = ``;
-    values.forEach(function(file) {
-    if (file.mimeType == 'application/x-7z-compressed'){
-    tag = tag + `<tr><td>${file.name}</td><td><button class="btn btn-success btn_get" id="${file.id}" onclick="">Download</button></td></tr>`;
-    }
-    else {
-    tag = tag + `<tr><td>${file.name}</td><td><button class="btn btn-primary btn_view" id="${file.id}" onclick="viewFolder('${file.id}');">Navigate</button></td></tr>`;
-    }
+    values.forEach(function (file) {
+        if (file.mimeType == 'application/x-7z-compressed') {
+            tag = tag + `<tr><td>${file.name}</td><td><button class="btn btn-success btn_get" id="${file.id}" onclick="">Download</button></td></tr>`;
+        }
+        else {
+            tag = tag + `<tr><td>${file.name}</td><td><button class="btn btn-primary btn_view" id="${file.id}" onclick="viewFolder('${file.id}');">Navigate</button></td></tr>`;
+        }
     })
     tableHeader = `<th scope="col">Team</th><th scope="col">ID</th>`;
     document.querySelector(".stadium_headers").innerHTML = tableHeader;
