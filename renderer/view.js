@@ -1,4 +1,5 @@
 const { google } = require('googleapis')
+const { ipcRenderer } = require('electron');
 
 function download(id) {
     ipcRenderer.send('set-download', id);
