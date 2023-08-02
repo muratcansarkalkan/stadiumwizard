@@ -15,6 +15,9 @@ import HomePage from './components/HomePage';
 import Sidebar from './components/Sidebar';
 import StadiumList from './components/StadiumList';
 import TeamList from './components/TeamList';
+import { inject } from '@vercel/analytics';
+ 
+inject();
 
 const router = createBrowserRouter([
   {
