@@ -1,5 +1,5 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { GridColDef } from '@mui/x-data-grid';
 import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import StadiumDetail from './StadiumDetail';
+import connectionLink from '../connection/Connection';
 
 // Defining columns
 
@@ -19,7 +20,6 @@ const columns: GridColDef[] = [
     { field: 'LeagueLevel', headerName: 'Stadium Availability', flex: 1,
     renderCell: params => {
         if (params.row.stadiumData.length > 0) {
-            console.log(params.row.stadiumData)
           return <StadiumDetail title='Available' data={params.row.stadiumData[0]} />;
         }
         return <div>Not Available</div>;
@@ -34,9 +34,9 @@ export default function TeamList () {
     const [rows, setRows] = useState([]);
 
     // Get data!
-    const getApiData = async (selectedLeague: string) => {
+    const getApiData = async (selectedCountry: string, selectedLeague: string) => {
         const response = await fetch(
-            `https://stadiumwizardbackend.vercel.app/teams/stadiumdata/league=${selectedLeague}`
+            `${connectionLink}/teams/stadiumdata/country=${selectedCountry}&league=${selectedLeague}`
         ).then((response) => response.json());
         setRows(response);
       };
@@ -50,7 +50,7 @@ export default function TeamList () {
 
     const getLeagues = async (selectedCountry: string) => {
         const response = await fetch(
-          `https://stadiumwizardbackend.vercel.app/leagues/country=${selectedCountry}`
+          `${connectionLink}/leagues/country=${selectedCountry}`
         ).then((response) => response.json());
         setLeagues(response);
       };
@@ -61,19 +61,21 @@ export default function TeamList () {
 
     const getCountries = async () => {
         const response = await fetch(
-            `https://stadiumwizardbackend.vercel.app/leagues/countries`
+            `${connectionLink}/leagues/countries`
         ).then((response) => response.json());
         setCountries(response);
     };
 
     const handleCountryChange = (event: SelectChangeEvent) => {
         setCountry(event.target.value as string);
+        setRows([]);
+        setLeague('');
         getLeagues(event.target.value);
     };
 
     const handleLeagueChange = (event: SelectChangeEvent) => {
         setLeague(event.target.value as string);
-        getApiData(event.target.value);
+        getApiData(country, event.target.value);
     };
     
     return (

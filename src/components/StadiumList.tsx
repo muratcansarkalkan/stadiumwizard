@@ -1,6 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { GridColDef, GridRowsProp } from '@mui/x-data-grid';
-import React, { useEffect, useState } from "react";
+import { GridColDef } from '@mui/x-data-grid';
+import { useEffect, useState } from "react";
+import connectionLink from '../connection/Connection';
 
 export default function StadiumList () {
 
@@ -14,8 +15,9 @@ export default function StadiumList () {
 ]
 
     const getApiData = async () => {
+      console.log(process.env.CURRENT_URL);
       const response = await fetch(
-        "https://stadiumwizardbackend.vercel.app/stadiums/"
+        `${connectionLink}/stadiums/`
       ).then((response) => response.json());
       
       setRows(response);
