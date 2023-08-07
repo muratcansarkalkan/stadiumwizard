@@ -15,7 +15,7 @@ export default function StadiumList () {
 ]
 
     const getApiData = async () => {
-      console.log(process.env.CURRENT_URL);
+      console.log(process.env.REACT_APP_CONNECTION_STRING)
       const response = await fetch(
         `${connectionLink}/stadiums/`
       ).then((response) => response.json());
