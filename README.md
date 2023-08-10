@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# Stadium Wizard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Stadium Wizard](https://stadiumwizard.vercel.app) is a web app that helps users to get a grasp of what teams are available in FIFA Manager 14's [2023 season update](https://www.moddb.com/mods/fifa-manager-season-patch) and the available list of stadiums in the published Google Drive archive.
 
-## Available Scripts
+Previously, it took users hard to navigate through the published archive and understand what custom stadiums became available. The Google Drive file repository was quite clumsy considering the user experience, so I built this website to help gamers who wants to enhance FIFA Manager 14's 3D mode with custom stadiums. The website got immediate acclaim and was widely appreciated by users.
 
-In the project directory, you can run:
+Users can view the list of available teams by accessing the 'Team List' page and selecting a country followed by a league. This will display a list of teams within the chosen league, alongside stadium availability indicated in the rightmost column. If the 'Available' button appears for a specific team, users can click it to obtain instructions on downloading the game files for the corresponding stadium.
 
-### `npm start`
+Users can also view the list of available stadiums through the 'Stadium List' page. Using the DataTable structure, users can filter the list based on the date of publication, country, and team name.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The app is built using MERN stack, as the backend based on a MongoDB database written with Express.js and Node.js, is available at the repository below.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<p>
+<a href="https://github.com/muratcansarkalkan/stadiumwizardbackend">
+  <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=muratcansarkalkan&repo=stadiumwizardbackend" />
+</a>
+</p>
+The frontend has been developed with React.js and Typescript.
 
-### `npm test`
+## Contributing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The project is composed of two different parts. 
+Follow the steps below to run the project locally and contribute.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Clone both this repository and the backend repository included above.
+    - `git clone git@github.com:muratcansarkalkan/stadiumwizard.git`
+    - `git clone git@github.com:muratcansarkalkan/stadiumwizardbackend.git`
+2. Download and install [Node.js](https://nodejs.org/en/). NPM will also come bundled with Node.js. [See this page](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for more info.
+3. After installing Node.js, install the dependencies for both frontend and backend repositories.
+    - `cd stadiumwizard && npm install`
+    - `cd .. && cd stadiumwizardbackend && npm install`
+4. After installing the dependencies with `npm`, create a `.env` file both for frontend and backend repositories on the root of the project.
+5. Get the `ATLAS_URI` credentials from the project admin for stadiumwizardbackend and save the .env file in stadiumwizardbackend directory.
+6. Start the API connection by running `cd stadiumwizardbackend && nodemon server`. By default, the API will run on port 5000.
+7. The `REACT_APP_CONNECTION_STRING` credential you need to frontend to run properly is the port address for API. For port 5000, add this line to the .env file in stadiumwizard directory.
+    - `REACT_APP_CONNECTION_STRING='http://localhost:5000'`
+8. To run the website, type `npm start`. This will start the web client.
+9. Open up `localhost:3000` and start hacking.
