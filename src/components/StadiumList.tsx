@@ -1,5 +1,4 @@
-import { DataGrid } from '@mui/x-data-grid';
-import { GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridColDef } from '@mui/x-data-grid';
 import { useEffect, useState } from "react";
 import connectionLink from '../connection/Connection';
 
@@ -39,6 +38,12 @@ export default function StadiumList () {
           },
         }}
         pageSizeOptions={[5, 10, 20, 50, 100]}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
+          },
+        }}
             />
     )
 }
