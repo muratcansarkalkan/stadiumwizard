@@ -5,6 +5,7 @@ import connectionLink from '../connection/Connection';
 export default function StadiumList () {
 
     const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const columns: GridColDef[] = [
       { field: 'teamName', headerName: 'Team Name', flex: 1 },
@@ -14,12 +15,13 @@ export default function StadiumList () {
 ]
 
     const getApiData = async () => {
-      console.log(process.env.REACT_APP_CONNECTION_STRING)
+      setLoading(true)
       const response = await fetch(
         `${connectionLink}/stadiums/`
       ).then((response) => response.json());
       
       setRows(response);
+      setLoading(false)
     };
 
     useEffect(() => {
@@ -30,8 +32,10 @@ export default function StadiumList () {
         <DataGrid
         getRowId={(row) => row._id}
         rows={rows}
+        loading={loading}
         columns={columns}
         rowHeight={30}
+        autoHeight
         initialState={{
           pagination: {
             paginationModel: { pageSize: 20, page: 0 },

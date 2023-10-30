@@ -35,10 +35,12 @@ export default function TeamList () {
 
     // Get data!
     const getApiData = async (selectedCountry: string, selectedLeague: string) => {
+        setLoading(true);
         const response = await fetch(
             `${connectionLink}/teams/stadiumdata/country=${selectedCountry}&league=${selectedLeague}`
         ).then((response) => response.json());
         setRows(response);
+        setLoading(false);
       };
 
     // Change selection 
@@ -47,6 +49,8 @@ export default function TeamList () {
 
     const [league, setLeague] = React.useState('');
     const [leagues, setLeagues] = React.useState<any[]>([]);
+
+    const [loading, setLoading] = useState(false);
 
     const getLeagues = async (selectedCountry: string) => {
         const response = await fetch(
@@ -66,6 +70,7 @@ export default function TeamList () {
         setCountries(response);
     };
 
+    // gets a list of teams
     const handleCountryChange = (event: SelectChangeEvent) => {
         setCountry(event.target.value as string);
         setRows([]);
@@ -118,7 +123,9 @@ export default function TeamList () {
         getRowId={(row) => row._id}
         rows={rows}
         columns={columns}
+        loading={loading}
         rowHeight={30}
+        autoHeight
         initialState={{
           pagination: {
             paginationModel: { pageSize: 20, page: 0 },

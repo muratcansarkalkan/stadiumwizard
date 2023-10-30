@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import { NavLink, Outlet } from "react-router-dom";
 import AppBar from '../drawer/AppBar';
 import MainSection from '../drawer/MainSection';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   // allow configuration using `createTheme`
@@ -40,35 +39,6 @@ declare module '@mui/material/styles' {
     },  
   }
 }
-
-const theme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#f79018',
-    },
-    secondary: {
-      main: '#a4b4ef',
-    },
-    background: {
-      default: '#212458',
-      paper: '#212458',
-    },
-    text: {
-      primary: 'rgba(255,255,255,0.87)',
-      secondary: 'rgba(255,255,255,0.6)',
-      disabled: 'rgba(255,255,255,0.38)',
-    },
-    info: {
-      main: '#2955f6',
-    },
-  },
-  typography: {
-    fontFamily: 'PT Sans',
-  },
-});
-
-// <ThemeProvider theme={theme}></ThemeProvider>
 
 export default function Sidebar() {
 
