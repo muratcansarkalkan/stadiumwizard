@@ -47,7 +47,7 @@ export default function StadiumDetail(props: { title: string, data: {date: Strin
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button target="_blank" href="https://drive.google.com/drive/folders/1-1c1s9XpXO2O71KKP66DVI0YB8lM2L1g?usp=sharing">Go to Drive</Button>
+          <Button target="_blank" href="https://drive.google.com/drive/folders/1-3r3fSUxY69pTkcQCd8AkAk3voUE1OMj?usp=sharing">Go to Drive</Button>
         </DialogActions>
       </Dialog>
     </div>
