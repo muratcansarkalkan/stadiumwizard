@@ -1,5 +1,4 @@
-import { DataGrid } from '@mui/x-data-grid';
-import { GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridColDef } from '@mui/x-data-grid';
 import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -129,6 +128,12 @@ export default function TeamList () {
         initialState={{
           pagination: {
             paginationModel: { pageSize: 20, page: 0 },
+          },
+        }}
+        slots={{ toolbar: GridToolbar }}
+        slotProps={{
+          toolbar: {
+            showQuickFilter: true,
           },
         }}
         pageSizeOptions={[5, 10, 20, 50, 100]}

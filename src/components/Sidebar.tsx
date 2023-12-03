@@ -8,6 +8,9 @@ import { NavLink, Outlet } from "react-router-dom";
 import AppBar from '../drawer/AppBar';
 import MainSection from '../drawer/MainSection';
 
+import connectionLink from '../connection/Connection';
+import { useAuth } from '../context/LoginState';
+
 declare module '@mui/material/styles' {
   // allow configuration using `createTheme`
   interface PaletteOptions {
@@ -41,6 +44,32 @@ declare module '@mui/material/styles' {
 }
 
 export default function Sidebar() {
+  const { isLoggedIn, setLoggedIn } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(`${connectionLink}/auth/logout`, {
+        method: 'POST',
+        credentials: 'include', // Ensure to include credentials if using cookies
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        // Handle successful logout
+        setLoggedIn(false);
+        console.log('Logged out successfully');
+        // Redirect the user or perform other actions after successful logout
+      } else {
+        console.error('Logout failed');
+        // Handle logout failure
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Handle error
+    }
+  }
 
   return (
     <Box>
@@ -69,13 +98,35 @@ export default function Sidebar() {
               Stadium List
             </Button>
             <Button
-              key={1}
+              key={2}
               component={NavLink} to={'teamList'}
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
               Team List
             </Button>
+            <Button
+              key={2}
+              component={NavLink} to={'leagueList'}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              League List
+            </Button>
           </Box>
+          {!isLoggedIn && <Button
+              key={3}
+              component={NavLink} to={'login'}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Login
+          </Button>}
+          {isLoggedIn && <Button
+              key={3}
+              onClick={() => handleLogout()}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              Logout
+          </Button>
+          }
         </Toolbar>
       </AppBar>
     </Box>

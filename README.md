@@ -10,6 +10,10 @@ Users can also view the list of available stadiums through the 'Stadium List' pa
 
 The app is built using MERN stack, as the backend based on a MongoDB database written with Express.js and Node.js, is available at the repository below.
 
+## Changelog
+
+12/3/2023: Added league lists and a login system
+
 <p>
 <a href="https://github.com/muratcansarkalkan/stadiumwizardbackend">
   <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=muratcansarkalkan&repo=stadiumwizardbackend" />

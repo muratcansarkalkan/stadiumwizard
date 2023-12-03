@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -8,42 +8,22 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import HomePage from './components/HomePage';
-import Sidebar from './components/Sidebar';
-import StadiumList from './components/StadiumList';
-import TeamList from './components/TeamList';
+import router from './routes/Router';
+import { RouterProvider} from "react-router-dom";
 import { inject } from '@vercel/analytics';
- 
-inject();
+import {LoginProvider} from './context/LoginState';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Sidebar/>,
-    children: [
-      { index: true, element: <HomePage /> },
-      {
-        path: "teamList",
-        element: <TeamList />,
-      },
-      {
-        path: "stadiumList",
-        element: <StadiumList />,
-      },
-    ],
-  },
-]);
+inject();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <LoginProvider>
+      <RouterProvider router={router} />
+    </LoginProvider>
   </React.StrictMode>
 );
 
