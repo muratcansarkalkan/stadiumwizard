@@ -16,8 +16,11 @@ export default function LeagueList() {
   const [open, setOpen] = React.useState(false);
 
   const columns: GridColDef[] = [
-    { field: 'Country', headerName: 'Country', flex: 0.5 },
+    { field: 'Country', headerName: 'Country', flex: 0.75 },
     { field: 'League', headerName: 'League', flex: 1.5 },
+    { field: 'LeagueLevel', headerName: 'League Level', flex: 0.25,
+    renderCell: (params) => (params.value >= 255 ? '--' : params.value)
+  },
   ]
 
     // Gets data from stadiums. no login required
@@ -81,7 +84,7 @@ export default function LeagueList() {
   
     return (
       <Box>
-        <Grid container spacing={1} direction="column" alignItems="center" justifyContent="center">
+        <Grid container spacing={1} direction="column" alignItems="left" justifyContent="center">
           <DataGrid
           getRowId={(row) => row._id}
           rows={rows}
